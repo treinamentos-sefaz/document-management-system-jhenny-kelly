@@ -1,12 +1,12 @@
 const fs = require('node:fs/promises');
 const path = require('node:path');
 const { storageDirectory } = require('../config/storage');
+const { isUuidV4 } = require('../utils/uuid');
 
 const documentsById = new Map();
-const storedNamePattern = /^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
 
 function resolveStoredPath(storedName) {
-  if (!storedNamePattern.test(storedName)) {
+  if (!isUuidV4(storedName)) {
     throw new Error('Nome físico de documento inválido.');
   }
 
